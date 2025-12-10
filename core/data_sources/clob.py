@@ -330,7 +330,8 @@ class CLOBDataSource:
     def dump_candles_cache(self):
         # Use centralized data paths
         for key, df in self._candles_cache.items():
-            filename = data_paths.get_candles_path(f"{key[0]}|{key[1]}|{key[2]}.parquet")
+            # Use underscore instead of pipe for Windows compatibility
+            filename = data_paths.get_candles_path(f"{key[0]}_{key[1]}_{key[2]}.parquet")
             df.to_parquet(
                 filename,
                 engine='pyarrow',
